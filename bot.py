@@ -31,7 +31,7 @@ quotes = [
 # Event: Bot is ready
 @bot.event
 async def on_ready():
-    print(f'Logged in as {bot.user.name} at 06:29 PM WAT, May 17, 2025')
+    print(f'Logged in as {bot.user.name} at 06:38 PM WAT, May 17, 2025')
     active_message.start()
 
 @tasks.loop(seconds=30)
@@ -42,7 +42,7 @@ async def active_message():
     if server:
         channel = bot.get_channel(channel_id)
         if channel:
-            await channel.send("HaIDao is active! Use !joke for a laugh or !inspire for motivation! (Last updated: 06:29 PM WAT, May 17, 2025)")
+            await channel.send("HaloDao is active! Use !joke for a laugh or !inspire for motivation! (Last updated: 06:38 PM WAT, May 17, 2025)")
         else:
             print(f"Channel {channel_id} not found in server {server_id}")
     else:
@@ -60,7 +60,7 @@ async def joke(ctx):
         joke = random.choice(jokes)
         await ctx.send(f"**Here’s a joke for you:** {joke}")
     else:
-        await ctx.send("This command is only available in the HaIDao server!")
+        await ctx.send("This command is only available in the HaloDao server!")
 
 # Command: !inspire sends a motivational quote
 @bot.command()
@@ -69,7 +69,7 @@ async def inspire(ctx):
         quote = random.choice(quotes)
         await ctx.send(f"**Here’s some inspiration:** {quote}")
     else:
-        await ctx.send("This command is only available in the HaIDao server!")
+        await ctx.send("This command is only available in the HaloDao server!")
 
 # Run the bot
 bot.run(TOKEN)
