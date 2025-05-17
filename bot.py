@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import random
 from dotenv import load_dotenv
 import os
@@ -31,25 +31,6 @@ quotes = [
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name} at 07:04 PM WAT, May 17, 2025')
-    active_message.start()
-
-@tasks.loop(seconds=30)
-async def active_message():
-    server_id = 937472470796079135
-    channel_id = 1351711239079727185  
-    server = bot.get_guild(server_id)
-    if server:
-        channel = bot.get_channel(channel_id)
-        if channel:
-            await channel.send("HaloDao is active! Use !joke for a laugh or !inspire for motivation! (Last updated: 07:04 PM WAT, May 17, 2025)")
-        else:
-            print(f"Channel {channel_id} not found in server {server_id}")
-    else:
-        print(f"Server {server_id} not found")
-
-@active_message.before_loop
-async def before_active_message():
-    await bot.wait_until_ready()
 
 @bot.command()
 async def joke(ctx):
