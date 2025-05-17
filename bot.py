@@ -34,11 +34,10 @@ async def on_ready():
     print(f'Logged in as {bot.user.name} at 06:29 PM WAT, May 17, 2025')
     active_message.start()
 
-# Periodic task: Send a message every 30 seconds in the specified server
 @tasks.loop(seconds=30)
 async def active_message():
-    server_id = 937472470796079135  # Your server ID
-    channel_id = CHANNEL_ID  # Replace with a valid channel ID from your server
+    server_id = 937472470796079135  
+    channel_id = 1351711239079727185  
     server = bot.get_guild(server_id)
     if server:
         channel = bot.get_channel(channel_id)
