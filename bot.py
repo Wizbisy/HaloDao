@@ -4,14 +4,14 @@ import random
 from dotenv import load_dotenv
 import os
 
-# Load the token from .env file
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+if not TOKEN:
+    print("Error: DISCORD_TOKEN is not set in the environment.")
+    exit(1)
 
-# Set up the bot with ! prefix
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
-# Lists for jokes and quotes
 jokes = [
     "Why did the programmer prefer dark mode? Because the light attracted bugs!",
     "What do you call a bear with no teeth? A gummy bear!",
@@ -28,41 +28,38 @@ quotes = [
     "You are never too old to set another goal or to dream a new dream. – C.S. Lewis"
 ]
 
-# Event: Bot is ready
 @bot.event
 async def on_ready():
-    print(f'Logged in as {bot.user.name} at 06:38 PM WAT, May 17, 2025')
+    print(f'Logged in as {bot.user.name} at 07:04 PM WAT, May 17, 2025')
     active_message.start()
 
 @tasks.loop(seconds=30)
 async def active_message():
-    server_id = 937472470796079135  
+    server_id = 937472470796079135
     channel_id = 1351711239079727185  
     server = bot.get_guild(server_id)
     if server:
         channel = bot.get_channel(channel_id)
         if channel:
-            await channel.send("HaloDao is active! Use !joke for a laugh or !inspire for motivation! (Last updated: 06:38 PM WAT, May 17, 2025)")
+            await channel.send("HaloDao is active! Use !joke for a laugh or !inspire for motivation! (Last updated: 07:04 PM WAT, May 17, 2025)")
         else:
             print(f"Channel {channel_id} not found in server {server_id}")
     else:
         print(f"Server {server_id} not found")
 
-# Ensure the task waits for the bot to be ready
 @active_message.before_loop
 async def before_active_message():
     await bot.wait_until_ready()
 
-# Command: !joke sends a random joke
 @bot.command()
 async def joke(ctx):
+    print(f"Command !joke received from {ctx.author} in channel {ctx.channel.id}")
     if ctx.guild and ctx.guild.id == 937472470796079135:
         joke = random.choice(jokes)
         await ctx.send(f"**Here’s a joke for you:** {joke}")
     else:
         await ctx.send("This command is only available in the HaloDao server!")
 
-# Command: !inspire sends a motivational quote
 @bot.command()
 async def inspire(ctx):
     if ctx.guild and ctx.guild.id == 937472470796079135:
@@ -71,5 +68,4 @@ async def inspire(ctx):
     else:
         await ctx.send("This command is only available in the HaloDao server!")
 
-# Run the bot
 bot.run(TOKEN)
